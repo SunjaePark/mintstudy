@@ -1,3 +1,8 @@
+# SQLite
+
+* http://www.sqlite.org
+
+
 ## Objects
 
 ### sqlite3_stmt
@@ -20,8 +25,7 @@
 * filename arguments로 지정한 SQLite database file을 연다.
 * error가 발생한 경우에도 보통 database connection handle은 *ppDB에 반환된다.
 * 유일한 예외는 SQLite 객체를 유지하기 위한 memory를 할당 할 수 없는 경우, sqlite3 object의 pointer 대신에 *ppDb에 NULL이 기록된다.
-* 성공적으로 database를 **열였을(그리고 / 또는 만들었을) 경우 SQLITE_OK가 반환**된다.
-* 그렇지 않은 경우 Error Code가 반환된다.
+* 성공적으로 database를 **열였을(그리고 / 또는 만들었을) 경우 SQLITE_OK가 반환** 되고 그렇지 않은 경우 Error Code가 반환된다.
 * sqlite3_errmsg() 루틴은 sqlite3_open() 루틴에서 발생하는 어떤 error에 대한 영어 설명을 얻는데 사용할 수 있다.
 
 -----
@@ -35,6 +39,8 @@
 		void *,                                    /* 1st argument to callback */
 		char **errmsg                              /* Error msg written here */
 	);
+	
+	
 
 
 -----
@@ -67,13 +73,21 @@
 
 ### sqlite3_finalize
 
+	int sqlite3_finalize(sqlite3_stmt *pStmt);
 
+* called to delete a prepared statement.
+* If the most recent evaluation of the statement encountered no errors or if the statement is never been evaluated, then sqlite3_finalize() returns SQLITE_OK. 
 
 
 
 -----
 
 ### sqlite3_close
+
+	int sqlite3_close(sqlite3*);
+
+* destructors for the sqlite3 object.
+*  return SQLITE_OK if the sqlite3 object is successfully destroyed and all associated resources are deallocated.
 
 
 
